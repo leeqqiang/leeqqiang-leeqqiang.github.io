@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="ie=edge"/><title>22. 土豆的开源</title><style type="text/css">html, body { color: #111; }
+h1 { font-size: 26px; }
+.time { color: #999; }</style></head><body><h1>22. 土豆的开源</h1><p class="time">2005-04-28 19:19:20</p><div class="note">
+			<p><font size="3">今天看到方刚写的<a href="http://www.donews.net/fanggang/archive/2005/04/28/354092.aspx">软件开源的问题</a>。<a href="http://www.donews.net/keso/archive/2005/04/28/354317.aspx">Keso一向写的</a>主题或多或少都有些开源或者免费软件的（而且受方刚鼓动，也就把我的my Yahoo加了个Keso的RSS). 正好最近也在设计RSS和土豆网的整体结合：多媒体内容和文字的结合，提供内容的播客和他们的听众观众之间的结合。 在这儿先写些，也算是整理个思路。有的时候，写一些东西可以帮自己把很多杂事都过滤一遍。</font></p>
+<p>土豆最关心的是用户体验。在播客这一端，所有都是为了让播客能够轻松发布一个节目。在用户这一端，是让他们可以轻松地下载所有的内容。RSS对我们来说，只是个手段。前一段时间土豆网上基本没有什么特别用到RSS的地方，除了土豆blog本身。因为我还没考虑清楚这个整体的构架该怎么搭。</p>
+<p>发布内容这一端，没有什么RSS的必要。我要把所有的技术全部掩盖到后台。在发布内容的时候，播客什么都不用知道。RSS也好，Atom也好，都没有什么不同。生成和处理这些Feeds，全部由后台完成。</p>
+<p>前台是RSS的一个关键。有几个：<br>１．RSS下载软件。象是Blogmatrix Jager直接支持podcast，非常好的一个小软件。土豆可以自己开发一个，来支持土豆的多媒体文件的下载。做起来也不难，可以拿一个java的开源软件，做一些小修改，就可以了。不过，另一种做法是开放我们的API。比较倾向于这个，国内现在也有些在开发免费或者开源的RSS软件的公司吗？这样我们也可以集中精力在后台。<br>２．用户界面和Feed之间的匹配：单独对频道或者个人提供feed，是很容易的。过些天等手上的几个项目做了，上一个content management system，就可以直接提供。现在考虑的是，如何让用户在使用这些RSS feeds的时候，能够就象是使用卫星或者有线电视那样，有一个非常简单易用的GUI，用户界面。隐藏在界面的后面，应该是土豆上的RSS feeds，各种的排列组合方式。这个还没有考虑清楚。</p>
+<p>可能还是要开发一个软件，把所有的技术细节都隐藏在后面。上面最好连一个RSS的logo都不出现。也在考虑wiki，不过也是一样，必须是从用户实际能够从中得到什么使用上的方便和好处出发，而不是为了一个名词或者技术去做。</p>
+<p>土豆的播客，我相信绝大多数不会是IT人，或者对互联网技术很内行的人，而是普通的用户。</p>
+<p>土豆不想强调技术。技术都必须隐藏在后面，连提都不提它。而且，只要能开源，就尽可能地开。毕竟，土豆所有的开发都是搭建在LAMP的基础上。饮水思源。</p>
+<p>[@more@]<br></p>
+					</div></body></html>
