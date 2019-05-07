@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var LXLOG=function(){var e="//lx.yidianzixun.com/log";var a="lingxi_advertorial_h5_kingslanding";var o=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];var t={};var r={addParams:function(n){if(n.l){e=n.l+"/log"}if(n.t){a=n.t}delete n.l;delete n.t;Object.assign(t,n);i()},getUrlParams:function(){var n=location.search.slice(1).split("&").reduce(function(n,i){if(i==="")return n;var e=i.split("=");n[e[0].replace(/\B([A-Z])/,"_$1").toLowerCase()]=decodeURIComponent(e[1]);return n},{});if(n.aid){n.idea_id=n.aid}Object.assign(t,n)},sendLog:function(n){if([15,16].indexOf(n)==-1){this.imgLog(t)}},imgLog:function(n){var i=new Image;var e="_img_"+Math.random();window[e]=i;i.onload=i.onerror=function(){window[e]=null};i.src=this.getKafkaUrl(n)},uuid:function(n){n=(n+"").replace(/\,/g,"");var i=(new Date).getTime();var e=i+"_"+n+"_";var a=32-e.length;if(a<0){return e}var t=o.length;var r="";while(a--){r+=o[Math.floor(Math.random()*t)]}return e+r},getKafkaUrl:function(n){var i={entry:{site:{}},event:["click"],type:"h5",timestamp:(new Date).getTime()};n.uuid=this.uuid(n.k);i.info=n;return e+"?topic="+a+"&data="+encodeURIComponent(JSON.stringify(i))}};function i(){var i=t;r.getUrlParams();var e;if(i.k){e=i.k.substr(0,i.k.indexOf(","))}window.addEventListener("unload",function(n){if(e==15){r.imgLog(i)}});window.addEventListener("load",function(){if(e==16){r.imgLog(i)}})}if(window.LXLOG){return LXLOG}else{return{addParams:r.addParams.bind(r),sendLog:r.sendLog.bind(r)}}}();
+	</script>
+	<script>;LXLOG.addParams({"k":"12,1072,测试2,4,238670555"})</script>
+	<button onclick="LXLOG.sendLog(12)">点击调试</button>
+</body>
+</html>
