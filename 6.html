@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <p id="text"></p>
+  <script>
+    var isTop = top.location === self.location
+    var html = ''
+
+    if(isTop) {
+      html = '我是一个落地页 哈哈'
+    }
+    else {
+      var count = 5
+
+      html = `倒计时<span id="time">${count}</span>秒跳转`
+
+      var jump = function () {
+        if(count === 1) {
+          window.frameElement.removeAttribute('sandbox')
+          top.location = self.location
+        }
+        else {
+          document.getElementById('time').innerHTML = --count
+          setTimeout(jump, 1000)
+        }
+      }
+
+      setTimeout(jump, 1000)
+    }
+
+    document.getElementById('text').innerHTML = html
+  </script>
+</body>
+</html>
