@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+  <title>获取手机号</title>
+  <style>
+    .getPhone {
+      display: inline-block !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <p>
+      <input type="phone" placeholder="请输入手机号" v-model="prePhone" />
+      <button @click="handleUsePhone" v-if="hasPhone"
+        style="display: none"
+        :class="phoneClasses">
+        使用本机号码
+      </button>
+    </p>
+    <p>{{ prePhoneStr }}</p>
+    <p><button @click="handleSubmit">提交</button></p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script>
+    var ua = navigator.userAgent,
+    is_client = /yidianzixun/i.test(ua.toLowerCase()),
+    is_android = /android/i.test(ua),
+    is_ios = /iphone|ipad|ipod/i.test(ua),
+    isContainer = typeof container == 'object' && container,
+    isAndroidPhone = is_android && isContainer && container.getPrePhone
+
+    var app = new Vue({
+      el: '#root',
+      data: {
+        hasPhone: false,
+        phoneClasses: '',
+        prePhoneData: null,
+        prePhone: '',
+        phone: '',
+      },
+      computed: {
+        prePhoneStr: function () {
+          return this.prePhoneData ? `预取数据：${JSON.stringify(this.prePhoneData)}` : ''
+        }
+      },
+      watch: {
+        hasPhone(val) {
+          if(val) {
+            this.phoneClasses = 'getPhone'
+          }
+        }
+      },
+      methods: {
+        openScheme(scheme) {
+          var schemeIframe = document.createElement("iframe");
+
+          schemeIframe.style.cssText = "width:1px;height:1px;position:absolute;left:-1000em;";
+          schemeIframe.src = scheme;
+          document.body.appendChild(schemeIframe);
+          
+          setTimeout(function() {
+              document.body.removeChild(schemeIframe);
+          }, 1000);
+        },
+        getPhoneInit() {
+          if(is_client) {
+            window.yidian = window.yidian || {}
+
+            window.yidian.onGetPrePhone = window.onGetPrePhone = (data) => {
+              if(data) {
+                data = JSON.parse(data)
+
+                if (data.code === 7000) {
+                  this.hasPhone = true
+
+                  // 获取真实手机号
+                  this.getRealPhone()
+                }
+
+                this.prePhoneData = data
+
+              } else {
+                alert('预取手机号失败，请刷新页面重试')
+              }
+            }
+
+            window.yidian.onGetRealPhone = window.onGetRealPhone = (data) => {
+              if(data) {
+                this.phone = data
+              } else {
+                alert('获取手机号失败，请重试')
+              }
+            }
+
+            // 预取手机号
+            this.getPrePhone()
+          }
+          else {
+            alert('不在一点客户端内')
+          }
+        },
+        getRealPhone() {
+          if(isAndroidPhone) {
+            window.container.getRealPhone()
+            return
+          }
+
+          if(is_ios) {
+            this.openScheme('yidian-article://article?t=get_real_phone')
+          }
+        },
+        getPrePhone() {
+          if (isAndroidPhone) {
+            window.container.getPrePhone()
+            return
+          }
+
+          if(is_ios) {
+            this.openScheme('yidian-article://article?t=get_pre_phone')
+          }
+        },
+        handleUsePhone() {
+          this.prePhone = this.prePhoneData.securityNum
+        },
+        handleSubmit() {
+          alert(`手机号为：${this.phone}`)
+        }
+      },
+      mounted() {
+        this.getPhoneInit()
+      },
+    })
+  </script>
+</body>
+</html>
